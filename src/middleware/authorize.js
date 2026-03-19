@@ -6,16 +6,19 @@ const ROLE_PERMISSIONS = {
     'terc:list', 'terc:create', 'terc:edit', 'terc:delete',
     'compras:list', 'compras:create', 'compras:edit', 'compras:delete',
     'usuarios:list', 'usuarios:create', 'usuarios:edit', 'usuarios:delete',
+    'estoque:list', 'estoque:create', 'estoque:edit', 'estoque:delete',
   ],
   gerente: [
     'pedidos:list', 'pedidos:create', 'pedidos:edit', 'etapas:update',
     'terc:list', 'terc:create', 'terc:edit',
     'compras:list', 'compras:create', 'compras:edit',
+    'estoque:list', 'estoque:edit',
   ],
   operador: [
     'pedidos:list', 'etapas:update',
     'terc:list',
     'compras:list',
+    'estoque:list',
   ],
 };
 
