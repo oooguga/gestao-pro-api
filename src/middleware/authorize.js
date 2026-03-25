@@ -8,6 +8,7 @@ const ROLE_PERMISSIONS = {
     'usuarios:list', 'usuarios:create', 'usuarios:edit', 'usuarios:delete',
     'estoque:list', 'estoque:create', 'estoque:edit', 'estoque:delete',
     'config:list', 'config:edit',
+    'tarefas:list', 'tarefas:create', 'tarefas:edit', 'tarefas:delete',
   ],
   gerente: [
     'pedidos:list', 'pedidos:create', 'pedidos:edit', 'etapas:update',
@@ -15,6 +16,7 @@ const ROLE_PERMISSIONS = {
     'compras:list', 'compras:create', 'compras:edit',
     'estoque:list', 'estoque:edit',
     'config:list', 'config:edit',
+    'tarefas:list', 'tarefas:create', 'tarefas:edit', 'tarefas:delete',
   ],
   operador: [
     'pedidos:list', 'etapas:update',
@@ -22,6 +24,7 @@ const ROLE_PERMISSIONS = {
     'compras:list',
     'estoque:list',
     'config:list',
+    'tarefas:list', 'tarefas:create', 'tarefas:edit', 'tarefas:delete',
   ],
 };
 

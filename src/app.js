@@ -14,6 +14,7 @@ const comprasRoutes = require('./modules/compras/compras.routes');
 const usuariosRoutes = require('./modules/usuarios/usuarios.routes');
 const estoqueRoutes  = require('./modules/estoque/estoque.routes');
 const configRoutes   = require('./modules/config/config.routes');
+const tarefasRoutes  = require('./modules/tarefas/tarefas.routes');
 const notFound      = require('./middleware/notFound');
 const errorHandler  = require('./middleware/errorHandler');
 
@@ -39,6 +40,7 @@ app.use('/api/compras',  comprasRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/estoque',  estoqueRoutes);
 app.use('/api/config',   configRoutes);
+app.use('/api/tarefas',  tarefasRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
