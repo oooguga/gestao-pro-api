@@ -3,15 +3,28 @@ const AppError = require('../../errors/AppError');
 
 // ─── Colunas ──────────────────────────────────────────────────────────────────
 const listColunasComTarefas = async () => {
-  const [{ data: colunas, error: e1 }, { data: tarefas, error: e2 }] = await Promise.all([
-    supabase.from('tarefas_colunas').select('*').order('ordem'),
-    supabase.from('tarefas').select('*').order('ordem'),
-  ]);
-  if (e1 || e2) throw new AppError('Erro ao listar tarefas.', 500);
-  return (colunas ?? []).map((col) => ({
-    ...col,
-    tarefas: (tarefas ?? []).filter((t) => t.coluna_id === col.id),
-  }));
+  try {
+    const [resC, resT] = await Promise.all([
+      supabase.from('tarefas_colunas').select('*').order('ordem'),
+      supabase.from('tarefas').select('*').order('ordem'),
+    ]);
+
+    if (resC.error || resT.error) {
+      console.error('[tarefas] Supabase error colunas:', resC.error, 'tarefas:', resT.error);
+      return []; // retorna vazio em vez de crashar
+    }
+
+    const colunas = resC.data ?? [];
+    const tarefas = resT.data ?? [];
+
+    return colunas.map((col) => ({
+      ...col,
+      tarefas: tarefas.filter((t) => t.coluna_id === col.id),
+    }));
+  } catch (err) {
+    console.error('[tarefas] Exceção em listColunasComTarefas:', err);
+    return [];
+  }
 };
 
 const createColuna = async ({ nome, cor, ordem }) => {

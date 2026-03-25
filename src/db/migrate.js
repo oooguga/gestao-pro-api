@@ -53,6 +53,29 @@ CREATE TABLE IF NOT EXISTS estoque_movimentacoes (
 -- ─── Colunas adicionais (safe — só adiciona se não existir) ──────────────────
 ALTER TABLE estoque ADD COLUMN IF NOT EXISTS categoria   TEXT;
 ALTER TABLE estoque ADD COLUMN IF NOT EXISTS observacao  TEXT;
+
+-- ─── Tarefas (Kanban) ─────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS tarefas_colunas (
+  id         TEXT PRIMARY KEY,
+  nome       TEXT NOT NULL,
+  cor        TEXT DEFAULT '#2d4a2d',
+  ordem      INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS tarefas (
+  id         TEXT PRIMARY KEY,
+  coluna_id  TEXT REFERENCES tarefas_colunas(id) ON DELETE CASCADE,
+  titulo     TEXT NOT NULL,
+  concluido  BOOLEAN DEFAULT false,
+  cor        TEXT,
+  ordem      INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Grants para o Supabase (PostgREST via service_role)
+GRANT ALL ON tarefas_colunas TO anon, authenticated, service_role;
+GRANT ALL ON tarefas          TO anon, authenticated, service_role;
 `;
 
 async function runMigrations() {
