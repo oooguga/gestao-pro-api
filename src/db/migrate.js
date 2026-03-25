@@ -68,10 +68,15 @@ CREATE TABLE IF NOT EXISTS tarefas (
   coluna_id  TEXT REFERENCES tarefas_colunas(id) ON DELETE CASCADE,
   titulo     TEXT NOT NULL,
   concluido  BOOLEAN DEFAULT false,
+  alerta     BOOLEAN DEFAULT false,
+  arquivado  BOOLEAN DEFAULT false,
   cor        TEXT,
   ordem      INTEGER DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+ALTER TABLE tarefas ADD COLUMN IF NOT EXISTS alerta    BOOLEAN DEFAULT false;
+ALTER TABLE tarefas ADD COLUMN IF NOT EXISTS arquivado BOOLEAN DEFAULT false;
 
 -- Grants para o Supabase (PostgREST via service_role)
 GRANT ALL ON tarefas_colunas TO anon, authenticated, service_role;
